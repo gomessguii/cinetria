@@ -8,6 +8,20 @@ type User struct {
 	password string
 }
 
+func (u *User) IsNil() bool {
+	if u == nil {
+		return true
+	}
+	if u.id == 0 {
+		return true
+	}
+	return false
+}
+
+func (u *User) IsPasswordCorrect(password string) bool {
+	return u.password == password
+}
+
 func (u *User) IsCpfValid() bool {
 	if len(u.cpf) != 11 {
 		return false
