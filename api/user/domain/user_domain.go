@@ -24,9 +24,9 @@ func New(userRepository IUserRepository) IUserDomain {
 }
 
 
-func (*userDomain) CreateUser(userRequest *models.UserRequest) (*models.User, error) {
+func (u *userDomain) CreateUser(userRequest *models.UserRequest) (*models.User, error) {
 	if !userRequest.IsFilledUp() {
-		return nil, internal_errors.NewErrorWithCode(422, fmt.Errorf("CPF is invalid"))
+		return nil, internal_errors.NewErrorWithCode(422, fmt.Errorf("required fields not filled up"))
 	}
 
 	user := userRequest.ToUser()
@@ -35,6 +35,11 @@ func (*userDomain) CreateUser(userRequest *models.UserRequest) (*models.User, er
 		return nil, internal_errors.NewErrorWithCode(422, fmt.Errorf("CPF is invalid"))
 	}
 
+	err := u.repo.Create(user)
+
+	if err != nil {
+		return nil, err
+	}
 	return user, nil
 }
 

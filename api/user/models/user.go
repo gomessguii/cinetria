@@ -54,3 +54,11 @@ func (u *User) IsCpfValid() bool {
 
 	return digits[9] == int(u.cpf[9]-'0') && digits[10] == int(u.cpf[10]-'0')
 }
+
+
+func (u *User) Equals(other *User) bool {
+	return 	u.id == other.id && 
+			u.cpf == other.cpf && 
+			u.email == other.email && 
+			u.password == other.password
+}
