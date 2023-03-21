@@ -39,7 +39,7 @@ func (*userDomain) CreateUser(userRequest *models.UserRequest) (*models.User, er
 }
 
 func (u *userDomain) IsLoggedIn() bool {
-	return !u.loggedUser.IsNil()
+	return u.loggedUser != nil
 }
 
 func (d *userDomain) Login(email, password string) (*models.User, error) {
